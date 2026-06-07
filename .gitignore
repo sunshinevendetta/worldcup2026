@@ -42,6 +42,7 @@
 *.pem
 *.md
 .codex-screenshots/
+.claude/
 CLAUDE.md
 AGENTS.md
 
