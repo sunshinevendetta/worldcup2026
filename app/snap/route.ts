@@ -41,11 +41,15 @@ function buildGroupPickerSnap() {
   const groups = getGroups();
   const firstGroups = groups.slice(0, 6);
   const secondGroups = groups.slice(6);
-  const children = ["title", "body", "groups"];
+  const children = ["hero", "title", "body", "groups"];
   const elements: Record<string, SnapElement> = {
     page: stack(children),
-    title: text("Pick your World Cup group", { weight: "bold" }),
-    body: text("Choose a group, pick a team, then mint the support flag in the Mini App.", { size: "sm" }),
+    hero: image(getAbsoluteAppUrl("/images/world-cup-trophy.png"), "World Cup Support Drop", {
+      title: "World Cup Support Drop",
+      subtitle: "Pick a nation. Mint its flag. Push it up the table.",
+    }),
+    title: text("Choose your road to the cup", { weight: "bold" }),
+    body: text("Start with a group, then back a country on Base. Every 0.001 ETH flag claim adds to that team's count and reward pool.", { size: "sm" }),
     groups: stack(["groups-1", "groups-2"], "horizontal"),
     "groups-1": stack(firstGroups.map((group) => `group-${group}`), "vertical"),
     "groups-2": stack(secondGroups.map((group) => `group-${group}`), "vertical"),
@@ -61,9 +65,13 @@ function buildGroupPickerSnap() {
 function buildGroupSnap(group: string) {
   const groupTeams = teams.filter((team) => team.group === group);
   const elements: Record<string, SnapElement> = {
-    page: stack(["title", "body", "teams", "back"]),
-    title: text(`Group ${group}`, { weight: "bold" }),
-    body: text("Pick the team you want to support.", { size: "sm" }),
+    page: stack(["hero", "title", "body", "teams", "back"]),
+    hero: image(getAbsoluteAppUrl("/images/world-cup-trophy.png"), `Group ${group}`, {
+      title: `Group ${group}`,
+      subtitle: "Four teams. One support race.",
+    }),
+    title: text(`Back a team from Group ${group}`, { weight: "bold" }),
+    body: text("Choose the country you want to lift on the leaderboard. The winning support base shares the post-tournament reward path.", { size: "sm" }),
     teams: stack(groupTeams.map((team) => `team-${team.slug}`), "vertical"),
     back: button("Back to groups", submit(getAbsoluteAppUrl("/snap")), "secondary"),
   };
@@ -79,9 +87,13 @@ function buildTeamSnap(team: Team) {
   const teamUrl = getAbsoluteAppUrl(`/team/${team.slug}?miniApp=true`);
   const castText = getSupportShareText(team.name);
   const elements: Record<string, SnapElement> = {
-    page: stack(["title", "body", "actions", "back"]),
+    page: stack(["hero", "title", "body", "actions", "back"]),
+    hero: image(getAbsoluteAppUrl(`/images/teams/${team.slug}.webp`), team.name, {
+      title: team.name,
+      subtitle: `Group ${team.group} support flag`,
+    }),
     title: text(`Support ${team.name}`, { weight: "bold" }),
-    body: text("Mint this team flag for 0.001 ETH. The most-supported team gets the collected flag ETH.", { size: "sm" }),
+    body: text("Mint one support flag for 0.001 ETH. Your claim adds to this country's live count, and the strongest fan base becomes eligible for the reward flow after the cup.", { size: "sm" }),
     actions: stack(["mint", "cast"], "vertical"),
     mint: button("Mint flag", openMiniApp(teamUrl)),
     cast: button("Cast support", composeCast(castText, [teamUrl]), "secondary"),
@@ -114,6 +126,13 @@ function text(content: string, props: Record<string, unknown> = {}): SnapElement
   return {
     type: "text",
     props: { content, ...props },
+  };
+}
+
+function image(url: string, alt: string, props: Record<string, unknown> = {}): SnapElement {
+  return {
+    type: "image",
+    props: { url, alt, aspect: "1:1", ...props },
   };
 }
 
