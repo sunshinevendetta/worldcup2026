@@ -11,6 +11,8 @@ export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const NATIVE_TOKEN_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
 export const TOTAL_SUPPLY_SELECTOR = "0xbd85b039";
 export const CLAIM_SELECTOR = "0x57bc3d78";
+export const BUILDER_CODE = "bc_eim0iej2";
+export const BUILDER_CODE_DATA_SUFFIX = encodeBuilderCodeDataSuffix(BUILDER_CODE);
 
 export function hasConfiguredContract() {
   return CONTRACT_ADDRESS !== ZERO_ADDRESS;
@@ -25,7 +27,7 @@ export function encodeClaimCall(receiver: string, tokenId: number | bigint) {
   const tupleLength = 5n * 32n;
   const bytesOffset = tupleOffset + tupleLength;
 
-  return [
+  const data = [
     CLAIM_SELECTOR,
     addressWord(receiver).slice(2),
     uint256(tokenId).slice(2),
@@ -41,6 +43,8 @@ export function encodeClaimCall(receiver: string, tokenId: number | bigint) {
     uint256(0).slice(2),
     uint256(0).slice(2),
   ].join("") as `0x${string}`;
+
+  return appendBuilderCodeDataSuffix(data);
 }
 
 export function ethValueHex() {
@@ -53,4 +57,21 @@ function uint256(value: number | bigint) {
 
 function addressWord(address: string) {
   return `0x${address.toLowerCase().replace(/^0x/, "").padStart(64, "0")}`;
+}
+
+function appendBuilderCodeDataSuffix(data: `0x${string}`) {
+  return `${data}${BUILDER_CODE_DATA_SUFFIX.slice(2)}` as `0x${string}`;
+}
+
+function encodeBuilderCodeDataSuffix(code: string) {
+  const codeHex = asciiToHex(code);
+  const codeLengthHex = (codeHex.length / 2).toString(16).padStart(2, "0");
+  const schemaIdHex = "00";
+  const erc8021Marker = "8021".repeat(8);
+
+  return `0x${codeHex}${codeLengthHex}${schemaIdHex}${erc8021Marker}` as `0x${string}`;
+}
+
+function asciiToHex(value: string) {
+  return Array.from(value, (char) => char.charCodeAt(0).toString(16).padStart(2, "0")).join("");
 }
