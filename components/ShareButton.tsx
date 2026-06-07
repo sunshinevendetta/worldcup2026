@@ -8,7 +8,7 @@ export function ShareButton({ teamName, teamSlug }: { teamName: string; teamSlug
   const [status, setStatus] = useState("");
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || (typeof window !== "undefined" ? window.location.origin : "");
   const url = `${appUrl}/team/${teamSlug}`;
-  const text = getSupportShareText(teamName);
+  const text = getSupportShareText(teamName, teamSlug);
 
   function choosePlatform() {
     setStatus("");

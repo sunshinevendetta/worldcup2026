@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAbsoluteAppUrl, getSupportShareText } from "@/lib/social";
+import { getAbsoluteAppUrl, getSupportShareText, getTeamShareLabel } from "@/lib/social";
 import { getTeamBySlug, teams, type Team } from "@/lib/teams";
 
 const SNAP_CONTENT_TYPE = "application/vnd.farcaster.snap+json";
@@ -39,7 +39,7 @@ function buildSnap(request: NextRequest) {
 
 function buildGroupPickerSnap() {
   const groups = getGroups();
-  const groupRows = chunk(groups, 4);
+  const groupRows = chunk(groups, 2);
   const elements: Record<string, SnapElement> = {
     page: stack(["hero", "title", "groups"]),
     hero: image(getAbsoluteAppUrl("/images/world-cup-share-hero.png?v=1"), "World Cup Support Drop", {
@@ -63,16 +63,21 @@ function buildGroupPickerSnap() {
 
 function buildGroupSnap(group: string) {
   const groupTeams = teams.filter((team) => team.group === group);
+  const teamRows = chunk(groupTeams, 2);
   const elements: Record<string, SnapElement> = {
     page: stack(["title", "body", "teams", "back"]),
     title: text(`Back a team from Group ${group}`, { weight: "bold" }),
     body: text("Choose the country you want to lift on the leaderboard. The winning support base shares the post-tournament reward path.", { size: "sm" }),
-    teams: stack(groupTeams.map((team) => `team-${team.slug}`), "vertical"),
+    teams: stack(teamRows.map((_, index) => `team-row-${index + 1}`), "vertical"),
     back: button("Back to groups", submit(getAbsoluteAppUrl("/snap")), "secondary"),
   };
 
+  for (const [index, row] of teamRows.entries()) {
+    elements[`team-row-${index + 1}`] = stack(row.map((team) => `team-${team.slug}`), "horizontal");
+  }
+
   for (const team of groupTeams) {
-    elements[`team-${team.slug}`] = button(team.shortName, submit(getAbsoluteAppUrl(`/snap?team=${team.slug}`)));
+    elements[`team-${team.slug}`] = button(getTeamShareLabel(team.shortName, team.slug), submit(getAbsoluteAppUrl(`/snap?team=${team.slug}`)));
   }
 
   return snap(elements);
@@ -80,7 +85,7 @@ function buildGroupSnap(group: string) {
 
 function buildTeamSnap(team: Team) {
   const teamUrl = getAbsoluteAppUrl(`/team/${team.slug}?miniApp=true`);
-  const castText = getSupportShareText(team.name);
+  const castText = getSupportShareText(team.name, team.slug);
   const elements: Record<string, SnapElement> = {
     page: stack(["hero", "title", "body", "actions", "back"]),
     hero: image(getAbsoluteAppUrl(`/images/teams/${team.slug}.webp`), team.name, {
