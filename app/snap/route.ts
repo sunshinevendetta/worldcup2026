@@ -39,7 +39,7 @@ function buildSnap(request: NextRequest) {
 
 function buildGroupPickerSnap() {
   const groups = getGroups();
-  const groupRows = chunk(groups, 2);
+  const groupRows = chunk(groups, 4);
   const elements: Record<string, SnapElement> = {
     page: stack(["hero", "title", "groups"]),
     hero: image(getAbsoluteAppUrl("/images/world-cup-share-hero.png?v=1"), "World Cup Support Drop", {
@@ -55,7 +55,7 @@ function buildGroupPickerSnap() {
   }
 
   for (const group of groups) {
-    elements[`group-${group}`] = button(`Group ${group}`, submit(getAbsoluteAppUrl(`/snap?group=${group}`)));
+    elements[`group-${group}`] = button(group, submit(getAbsoluteAppUrl(`/snap?group=${group}`)));
   }
 
   return snap(elements);
