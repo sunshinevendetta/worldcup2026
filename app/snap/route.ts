@@ -109,7 +109,7 @@ function buildTeamSnap(team: Team) {
 function snap(elements: Record<string, SnapElement>) {
   return {
     version: "2.0",
-    theme: { accent: "green" },
+    theme: { accent: "yellow" },
     ui: {
       root: "page",
       elements,
