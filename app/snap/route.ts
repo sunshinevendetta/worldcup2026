@@ -151,10 +151,10 @@ function submit(target: string) {
   };
 }
 
-function openMiniApp(target: string) {
+function openMiniApp(url: string) {
   return {
     action: "open_mini_app",
-    params: { target },
+    params: { url },
   };
 }
 
