@@ -63,14 +63,11 @@ function buildGroupPickerSnap() {
 
 function buildGroupSnap(group: string) {
   const groupTeams = teams.filter((team) => team.group === group);
-  const teamColumns = [groupTeams.filter((_, index) => index % 2 === 0), groupTeams.filter((_, index) => index % 2 === 1)];
   const elements: Record<string, SnapElement> = {
     page: stack(["title", "body", "teams", "back"]),
     title: text(`Back a team from Group ${group}`, { weight: "bold" }),
     body: text("Choose the country you want to lift on the leaderboard. The winning support base shares the post-tournament reward path.", { size: "sm" }),
-    teams: stack(["team-column-1", "team-column-2"], "horizontal", { columns: 2 }),
-    "team-column-1": stack(teamColumns[0].map((team) => `team-${team.slug}`), "vertical"),
-    "team-column-2": stack(teamColumns[1].map((team) => `team-${team.slug}`), "vertical"),
+    teams: stack(groupTeams.map((team) => `team-${team.slug}`), "vertical"),
     back: button("Back to groups", submit(getAbsoluteAppUrl("/snap")), "secondary"),
   };
 
