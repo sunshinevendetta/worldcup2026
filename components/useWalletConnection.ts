@@ -26,27 +26,34 @@ let farcasterProvider: EthereumProvider | undefined;
 export function useWalletConnection() {
   const [address, setAddress] = useState<string>();
   const [chainId, setChainId] = useState<number>();
-  const [provider, setProvider] = useState<EthereumProvider | undefined>(() =>
-    typeof window !== "undefined" ? window.ethereum : undefined,
-  );
-  const [connector, setConnector] = useState<WalletConnector | undefined>(() =>
-    typeof window !== "undefined" && window.ethereum ? "injected" : undefined,
-  );
-  const [hasProvider, setHasProvider] = useState(() => typeof window !== "undefined" && Boolean(window.ethereum));
+  const [provider, setProvider] = useState<EthereumProvider>();
+  const [connector, setConnector] = useState<WalletConnector>();
+  const [hasProvider, setHasProvider] = useState(true);
   const [status, setStatus] = useState("Connect a wallet to continue.");
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    const initialProvider = window.ethereum;
-    if (!initialProvider) {
-      return;
-    }
-    const walletProvider = initialProvider;
+    let active = true;
 
     async function loadInitialWallet() {
+      await Promise.resolve();
+      if (!active) return;
+
+      const initialProvider = window.ethereum;
+      setHasProvider(Boolean(initialProvider));
+
+      if (!initialProvider) {
+        return;
+      }
+
+      const walletProvider = initialProvider;
+      setProvider(walletProvider);
+      setConnector("injected");
+
       try {
         const accounts = (await walletProvider.request({ method: "eth_accounts" })) as string[];
         const chainHex = (await walletProvider.request({ method: "eth_chainId" })) as string;
+        if (!active) return;
         setAddress(accounts[0]);
         setChainId(Number.parseInt(chainHex, 16));
       } catch {
@@ -55,6 +62,9 @@ export function useWalletConnection() {
     }
 
     void loadInitialWallet();
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {

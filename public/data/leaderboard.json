@@ -1,347 +1,347 @@
 {
-  "updatedAt": 1780820223284,
+  "updatedAt": 1780863656167,
   "stale": false,
   "chainId": 8453,
   "contract": "0x581b384dE36896cfA466898aDC1cD1d546924Ffc",
-  "totalMints": 1,
+  "totalMints": 4636,
   "mintPriceEth": "0.001",
-  "prizeBagEth": "0.0005",
+  "prizeBagEth": "2.318",
   "teams": [
     {
       "id": 1,
       "slug": "mexico",
       "name": "Mexico",
       "group": "A",
-      "count": 0
+      "count": 249
     },
     {
       "id": 2,
       "slug": "south-africa",
       "name": "South Africa",
       "group": "A",
-      "count": 0
+      "count": 56
     },
     {
       "id": 3,
       "slug": "south-korea",
       "name": "South Korea",
       "group": "A",
-      "count": 0
+      "count": 83
     },
     {
       "id": 4,
       "slug": "czechia",
       "name": "Czechia",
       "group": "A",
-      "count": 0
+      "count": 45
     },
     {
       "id": 5,
       "slug": "portugal",
       "name": "Portugal",
       "group": "B",
-      "count": 0
+      "count": 209
     },
     {
       "id": 6,
       "slug": "colombia",
       "name": "Colombia",
       "group": "B",
-      "count": 0
+      "count": 140
     },
     {
       "id": 7,
       "slug": "dr-congo",
       "name": "DR Congo",
       "group": "B",
-      "count": 0
+      "count": 31
     },
     {
       "id": 8,
       "slug": "uzbekistan",
       "name": "Uzbekistan",
       "group": "B",
-      "count": 0
+      "count": 43
     },
     {
       "id": 9,
       "slug": "argentina",
       "name": "Argentina",
       "group": "C",
-      "count": 0
+      "count": 285
     },
     {
       "id": 10,
       "slug": "algeria",
       "name": "Algeria",
       "group": "C",
-      "count": 0
+      "count": 61
     },
     {
       "id": 11,
       "slug": "austria",
       "name": "Austria",
       "group": "C",
-      "count": 0
+      "count": 73
     },
     {
       "id": 12,
       "slug": "jordan",
       "name": "Jordan",
       "group": "C",
-      "count": 0
+      "count": 35
     },
     {
       "id": 13,
       "slug": "france",
       "name": "France",
       "group": "D",
-      "count": 1
+      "count": 235
     },
     {
       "id": 14,
       "slug": "iraq",
       "name": "Iraq",
       "group": "D",
-      "count": 0
+      "count": 29
     },
     {
       "id": 15,
       "slug": "norway",
       "name": "Norway",
       "group": "D",
-      "count": 0
+      "count": 65
     },
     {
       "id": 16,
       "slug": "senegal",
       "name": "Senegal",
       "group": "D",
-      "count": 0
+      "count": 97
     },
     {
       "id": 17,
       "slug": "spain",
       "name": "Spain",
       "group": "E",
-      "count": 0
+      "count": 185
     },
     {
       "id": 18,
       "slug": "cape-verde",
       "name": "Cape Verde",
       "group": "E",
-      "count": 0
+      "count": 23
     },
     {
       "id": 19,
       "slug": "saudi-arabia",
       "name": "Saudi Arabia",
       "group": "E",
-      "count": 0
+      "count": 54
     },
     {
       "id": 20,
       "slug": "uruguay",
       "name": "Uruguay",
       "group": "E",
-      "count": 0
+      "count": 108
     },
     {
       "id": 21,
       "slug": "belgium",
       "name": "Belgium",
       "group": "F",
-      "count": 0
+      "count": 121
     },
     {
       "id": 22,
       "slug": "egypt",
       "name": "Egypt",
       "group": "F",
-      "count": 0
+      "count": 68
     },
     {
       "id": 23,
       "slug": "iran",
       "name": "Iran",
       "group": "F",
-      "count": 0
+      "count": 49
     },
     {
       "id": 24,
       "slug": "new-zealand",
       "name": "New Zealand",
       "group": "F",
-      "count": 0
+      "count": 40
     },
     {
       "id": 25,
       "slug": "netherlands",
       "name": "Netherlands",
       "group": "G",
-      "count": 0
+      "count": 130
     },
     {
       "id": 26,
       "slug": "japan",
       "name": "Japan",
       "group": "G",
-      "count": 0
+      "count": 105
     },
     {
       "id": 27,
       "slug": "sweden",
       "name": "Sweden",
       "group": "G",
-      "count": 0
+      "count": 57
     },
     {
       "id": 28,
       "slug": "tunisia",
       "name": "Tunisia",
       "group": "G",
-      "count": 0
+      "count": 47
     },
     {
       "id": 29,
       "slug": "germany",
       "name": "Germany",
       "group": "H",
-      "count": 0
+      "count": 169
     },
     {
       "id": 30,
       "slug": "curacao",
       "name": "Curacao",
       "group": "H",
-      "count": 0
+      "count": 21
     },
     {
       "id": 31,
       "slug": "ivory-coast",
       "name": "Ivory Coast",
       "group": "H",
-      "count": 0
+      "count": 52
     },
     {
       "id": 32,
       "slug": "ecuador",
       "name": "Ecuador",
       "group": "H",
-      "count": 0
+      "count": 51
     },
     {
       "id": 33,
       "slug": "united-states",
       "name": "United States",
       "group": "I",
-      "count": 0
+      "count": 215
     },
     {
       "id": 34,
       "slug": "paraguay",
       "name": "Paraguay",
       "group": "I",
-      "count": 0
+      "count": 63
     },
     {
       "id": 35,
       "slug": "australia",
       "name": "Australia",
       "group": "I",
-      "count": 0
+      "count": 85
     },
     {
       "id": 36,
       "slug": "turkey",
       "name": "Turkey",
       "group": "I",
-      "count": 0
+      "count": 74
     },
     {
       "id": 37,
       "slug": "brazil",
       "name": "Brazil",
       "group": "J",
-      "count": 0
+      "count": 310
     },
     {
       "id": 38,
       "slug": "morocco",
       "name": "Morocco",
       "group": "J",
-      "count": 0
+      "count": 132
     },
     {
       "id": 39,
       "slug": "haiti",
       "name": "Haiti",
       "group": "J",
-      "count": 0
+      "count": 26
     },
     {
       "id": 40,
       "slug": "scotland",
       "name": "Scotland",
       "group": "J",
-      "count": 0
+      "count": 42
     },
     {
       "id": 41,
       "slug": "canada",
       "name": "Canada",
       "group": "K",
-      "count": 0
+      "count": 153
     },
     {
       "id": 42,
       "slug": "bosnia-herzegovina",
       "name": "Bosnia & Herzegovina",
       "group": "K",
-      "count": 0
+      "count": 32
     },
     {
       "id": 43,
       "slug": "qatar",
       "name": "Qatar",
       "group": "K",
-      "count": 0
+      "count": 38
     },
     {
       "id": 44,
       "slug": "switzerland",
       "name": "Switzerland",
       "group": "K",
-      "count": 0
+      "count": 71
     },
     {
       "id": 45,
       "slug": "england",
       "name": "England",
       "group": "L",
-      "count": 0
+      "count": 198
     },
     {
       "id": 46,
       "slug": "croatia",
       "name": "Croatia",
       "group": "L",
-      "count": 0
+      "count": 91
     },
     {
       "id": 47,
       "slug": "ghana",
       "name": "Ghana",
       "group": "L",
-      "count": 0
+      "count": 49
     },
     {
       "id": 48,
       "slug": "panama",
       "name": "Panama",
       "group": "L",
-      "count": 0
+      "count": 41
     }
   ]
 }

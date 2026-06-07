@@ -114,6 +114,7 @@ export function TeamGrid({ teams, counts }: { teams: Team[]; counts?: Array<[str
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Mexico, Japan, Brazil..."
             aria-label="Search teams"
+            suppressHydrationWarning
           />
         </label>
         <div className="team-group-tabs" role="tablist" aria-label="Filter teams by group">
