@@ -67,7 +67,7 @@ export function getTeamShareLabel(teamName: string, teamSlug?: string) {
 export function getSupportShareText(teamName: string, teamSlug?: string) {
   const teamLabel = getTeamShareLabel(teamName, teamSlug);
 
-  return `I'm supporting ${teamLabel} in the World Cup.\n\nThe most-supported team gets all the ETH from claimed support flags.\n\nBack ${teamLabel}:`;
+  return `I'm supporting ${teamLabel} with 0.001 ETH in the World Cup.\n\nThe most-supported team gets all the ETH from claimed support flags.\n\nBack ${teamLabel}:`;
 }
 
 function countryFlagEmoji(countryCode: string) {

@@ -88,12 +88,13 @@ function buildTeamSnap(team: Team) {
   const elements: Record<string, SnapElement> = {
     page: stack(["hero", "title", "body", "actions", "back"]),
     hero: image(getAbsoluteAppUrl(`/images/teams/${team.slug}.webp`), team.name, {
+      aspect: "1.91:1",
       title: team.name,
       subtitle: `Group ${team.group} support flag`,
     }),
     title: text(`Support ${team.name}`, { weight: "bold" }),
-    body: text("Mint one support flag for 0.001 ETH. Your claim adds to this country's live count, and the strongest fan base becomes eligible for the reward flow after the cup.", { size: "sm" }),
-    actions: stack(["mint", "cast"], "horizontal"),
+    body: text("Mint a support flag for 0.001 ETH. The most-backed team wins the support pool.", { size: "sm" }),
+    actions: stack(["mint", "cast"], "horizontal", { columns: 2 }),
     mint: button("Mint flag", openUrl(teamUrl)),
     cast: button("Cast support", composeCast(castText, [teamUrl]), "secondary"),
     back: button(`Group ${team.group}`, submit(getAbsoluteAppUrl(`/snap?group=${team.group}`)), "secondary"),
