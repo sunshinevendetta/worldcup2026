@@ -4,9 +4,9 @@ import { getAbsoluteAppUrl } from "@/lib/social";
 export const dynamic = "force-dynamic";
 
 const accountAssociation = {
-  header: "eyJmaWQiOjI3Mjk3NywidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDRDNWQ1QTVlMTI0RGY5ZEFjQWUyNjI4ZWYzQTY4Mjk0RTllRTFhREMifQ",
+  header: "eyJmaWQiOjI3Mjk3NywidHlwZSI6ImF1dGgiLCJrZXkiOiIweDBCYjE1ZjEzY0FlRDgyM2Q4MjgyMUY3ZkQxMWVEOGU5RTBlMjc5NjQifQ",
   payload: "eyJkb21haW4iOiJ3b3JsZGN1cC5zdW5zaGluZXZlbmRldHRhLmNvbSJ9",
-  signature: "Na1zDM5pPD1htC4eMgmiNIyCPBtd46rUvtZXn+QFZ2cl/RVTQIZKY9dZ3gxN+hgEmfi4TsfaKcBpoI0lCVzmqBw=",
+  signature: "3M0qAV//ZrOADn07bygpb18/QisH+PQsfm0saYTMWYZAoUTx4y5+Cb/uRuYbCpdRXxfvbTRmEeVNHx1RSzHl8hw=",
 };
 
 export function GET() {
