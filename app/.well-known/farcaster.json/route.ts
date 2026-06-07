@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { getAbsoluteAppUrl } from "@/lib/social";
 
 export const dynamic = "force-dynamic";
-const appImage = "/images/world-cup-trophy.png?v=2";
+const appIcon = "/images/world-cup-trophy.png?v=2";
+const shareImage = "/images/world-cup-share-hero.png?v=1";
 
 const accountAssociation = {
   header: "eyJmaWQiOjI3Mjk3NywidHlwZSI6ImF1dGgiLCJrZXkiOiIweDBCYjE1ZjEzY0FlRDgyM2Q4MjgyMUY3ZkQxMWVEOGU5RTBlMjc5NjQifQ",
@@ -23,16 +24,16 @@ export function GET() {
       subtitle: "Back your World Cup team",
       description: "Claim a team support flag for 0.001 ETH. The most-supported team gets the collected flag ETH.",
       homeUrl: getAbsoluteAppUrl("/"),
-      iconUrl: getAbsoluteAppUrl(appImage),
-      imageUrl: getAbsoluteAppUrl(appImage),
+      iconUrl: getAbsoluteAppUrl(appIcon),
+      imageUrl: getAbsoluteAppUrl(shareImage),
       buttonTitle: "Pick your team",
-      splashImageUrl: getAbsoluteAppUrl(appImage),
+      splashImageUrl: getAbsoluteAppUrl(appIcon),
       splashBackgroundColor: "#080a0d",
-      heroImageUrl: getAbsoluteAppUrl(appImage),
+      heroImageUrl: getAbsoluteAppUrl(shareImage),
       tagline: "Back your team",
       ogTitle: "World Cup Support Drop",
       ogDescription: "Claim a support flag and push your team up the leaderboard.",
-      ogImageUrl: getAbsoluteAppUrl(appImage),
+      ogImageUrl: getAbsoluteAppUrl(shareImage),
       castShareUrl: getAbsoluteAppUrl("/"),
       primaryCategory: "games",
       tags: ["worldcup", "base", "nft", "sports", "collect"],
