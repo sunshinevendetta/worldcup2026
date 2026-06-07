@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAbsoluteAppUrl, getSupportShareText, getTeamShareLabel } from "@/lib/social";
+import { getAbsoluteAppUrl, getSupportShareText } from "@/lib/social";
 import { getTeamBySlug, teams, type Team } from "@/lib/teams";
 
 const SNAP_CONTENT_TYPE = "application/vnd.farcaster.snap+json";
@@ -176,22 +176,15 @@ function getSnapTeamLabel(team: Team) {
   const labels: Record<string, string> = {
     "cape-verde": "Cape V.",
     "dr-congo": "DR Congo",
-    england: "England",
     "ivory-coast": "Ivory C.",
     "new-zealand": "N. Zealand",
     "saudi-arabia": "Saudi",
-    scotland: "Scotland",
     "south-africa": "S. Africa",
     "south-korea": "S. Korea",
     "united-states": "USA",
   };
 
-  const label = labels[team.slug] || team.shortName;
-  if (team.slug === "england" || team.slug === "scotland") {
-    return `${String.fromCodePoint(0x1f3f4)} ${label}`;
-  }
-
-  return getTeamShareLabel(label, team.slug);
+  return labels[team.slug] || team.shortName;
 }
 
 function chunk<T>(items: T[], size: number) {
