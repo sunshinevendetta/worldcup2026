@@ -35,16 +35,6 @@ export function GET() {
       requiredChains: ["eip155:8453"],
       requiredCapabilities: ["wallet.getEthereumProvider", "actions.composeCast"],
     },
-    frame: {
-      version: "1",
-      name: "World Cup Support Drop",
-      homeUrl: getAbsoluteAppUrl("/"),
-      iconUrl: getAbsoluteAppUrl("/images/teams/mexico.webp"),
-      imageUrl: getAbsoluteAppUrl("/images/teams/mexico.webp"),
-      buttonTitle: "Pick your team",
-      splashImageUrl: getAbsoluteAppUrl("/images/teams/mexico.webp"),
-      splashBackgroundColor: "#080a0d",
-    },
   };
 
   if (baseBuilderOwnerAddress) {
