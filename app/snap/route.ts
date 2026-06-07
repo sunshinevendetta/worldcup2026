@@ -41,13 +41,9 @@ function buildGroupPickerSnap() {
   const groups = getGroups();
   const firstGroups = groups.slice(0, 6);
   const secondGroups = groups.slice(6);
-  const children = ["hero", "title", "body", "groups"];
+  const children = ["title", "body", "groups"];
   const elements: Record<string, SnapElement> = {
     page: stack(children),
-    hero: image(getAbsoluteAppUrl("/images/world-cup-trophy.png"), "World Cup Support Drop", {
-      title: "World Cup Support Drop",
-      subtitle: "Pick a nation. Mint its flag. Push it up the table.",
-    }),
     title: text("Choose your road to the cup", { weight: "bold" }),
     body: text("Start with a group, then back a country on Base. Every 0.001 ETH flag claim adds to that team's count and reward pool.", { size: "sm" }),
     groups: stack(["groups-1", "groups-2"], "horizontal"),
@@ -65,11 +61,7 @@ function buildGroupPickerSnap() {
 function buildGroupSnap(group: string) {
   const groupTeams = teams.filter((team) => team.group === group);
   const elements: Record<string, SnapElement> = {
-    page: stack(["hero", "title", "body", "teams", "back"]),
-    hero: image(getAbsoluteAppUrl("/images/world-cup-trophy.png"), `Group ${group}`, {
-      title: `Group ${group}`,
-      subtitle: "Four teams. One support race.",
-    }),
+    page: stack(["title", "body", "teams", "back"]),
     title: text(`Back a team from Group ${group}`, { weight: "bold" }),
     body: text("Choose the country you want to lift on the leaderboard. The winning support base shares the post-tournament reward path.", { size: "sm" }),
     teams: stack(groupTeams.map((team) => `team-${team.slug}`), "vertical"),

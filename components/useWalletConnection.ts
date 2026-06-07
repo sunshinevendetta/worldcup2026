@@ -267,7 +267,7 @@ export function getConnectorLabel(connector?: WalletConnector) {
 }
 
 function getAppIconUrl() {
-  return `${window.location.origin}/images/teams/mexico.webp`;
+  return `${window.location.origin}/images/world-cup-trophy.png`;
 }
 
 function toChainHex(chainId: number) {

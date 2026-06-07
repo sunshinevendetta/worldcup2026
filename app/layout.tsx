@@ -17,6 +17,8 @@ const geistMono = Geist_Mono({
 
 const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 const baseAppId = process.env.NEXT_PUBLIC_BASE_APP_ID || "6a23befeee0157745851b28a";
+const appImage = "/images/world-cup-trophy.png";
+const absoluteAppImage = new URL(appImage, appUrl).toString();
 
 export const metadata: Metadata = {
   title: "World Cup Support Drop",
@@ -27,20 +29,26 @@ export const metadata: Metadata = {
     description: "Claim your team flag and support your country in the World Cup leaderboard race.",
     url: appUrl,
     siteName: "World Cup Support Drop",
-    images: [{ url: "/images/teams/mexico.webp", width: 1200, height: 1200 }],
+    images: [{ url: appImage, width: 1200, height: 1200, alt: "World Cup Support Drop trophy icon" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "World Cup Support Drop",
+    description: "Claim your team flag and support your country in the World Cup leaderboard race.",
+    images: [appImage],
   },
   other: {
     "base:app_id": baseAppId,
     "fc:miniapp": JSON.stringify({
       version: "1",
-      imageUrl: `${appUrl}/images/teams/mexico.webp`,
+      imageUrl: absoluteAppImage,
       button: {
         title: "Pick your team",
         action: {
           type: "launch_frame",
           name: "World Cup Support Drop",
           url: appUrl,
-          splashImageUrl: `${appUrl}/images/teams/mexico.webp`,
+          splashImageUrl: absoluteAppImage,
           splashBackgroundColor: "#080a0d",
         },
       },
