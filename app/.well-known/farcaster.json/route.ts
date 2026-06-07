@@ -3,6 +3,12 @@ import { getAbsoluteAppUrl } from "@/lib/social";
 
 export const dynamic = "force-dynamic";
 
+const accountAssociation = {
+  header: "eyJmaWQiOjI3Mjk3NywidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDRDNWQ1QTVlMTI0RGY5ZEFjQWUyNjI4ZWYzQTY4Mjk0RTllRTFhREMifQ",
+  payload: "eyJkb21haW4iOiJ3b3JsZGN1cC5zdW5zaGluZXZlbmRldHRhLmNvbSJ9",
+  signature: "Na1zDM5pPD1htC4eMgmiNIyCPBtd46rUvtZXn+QFZ2cl/RVTQIZKY9dZ3gxN+hgEmfi4TsfaKcBpoI0lCVzmqBw=",
+};
+
 export function GET() {
   const baseBuilderOwnerAddress =
     process.env.NEXT_PUBLIC_BASE_BUILDER_OWNER_ADDRESS ||
@@ -47,10 +53,7 @@ export function GET() {
     };
   }
 
-  const accountAssociation = getAccountAssociation();
-  if (accountAssociation) {
-    manifest.accountAssociation = accountAssociation;
-  }
+  manifest.accountAssociation = getAccountAssociation() || accountAssociation;
 
   const webhookUrl = process.env.FARCASTER_WEBHOOK_URL;
   if (webhookUrl && typeof manifest.miniapp === "object" && manifest.miniapp) {
