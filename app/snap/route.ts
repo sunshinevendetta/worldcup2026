@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
 
 function buildSnap(request: NextRequest) {
   const group = request.nextUrl.searchParams.get("group")?.toUpperCase();
+  const groupPage = Number(request.nextUrl.searchParams.get("page") || "0");
   const teamSlug = request.nextUrl.searchParams.get("team");
   const team = teamSlug ? getTeamBySlug(teamSlug) : undefined;
 
@@ -34,27 +35,30 @@ function buildSnap(request: NextRequest) {
     return buildGroupSnap(group);
   }
 
-  return buildGroupPickerSnap();
+  return buildGroupPickerSnap(groupPage);
 }
 
-function buildGroupPickerSnap() {
-  const groups = getGroups();
-  const groupRows = chunk(groups, 4);
+function buildGroupPickerSnap(groupPage: number) {
+  const groupPages = chunk(getGroups(), 4);
+  const pageIndex = normalizePageIndex(groupPage, groupPages.length);
+  const visibleGroups = groupPages[pageIndex] || groupPages[0];
+  const previousPage = normalizePageIndex(pageIndex - 1, groupPages.length);
+  const nextPage = normalizePageIndex(pageIndex + 1, groupPages.length);
+  const groupRange = `${visibleGroups[0]}-${visibleGroups[visibleGroups.length - 1]}`;
   const elements: Record<string, SnapElement> = {
-    page: stack(["hero", "title", "groups"]),
+    page: stack(["hero", "title", "groups", "group-nav"]),
     hero: image(getAbsoluteAppUrl("/images/world-cup-share-hero.png?v=1"), "World Cup Support Drop", {
       title: "World Cup Support Drop",
-      subtitle: "Groups A-L",
+      subtitle: `Groups ${groupRange}`,
     }),
     title: text("Pick your World Cup group", { weight: "bold" }),
-    groups: stack(groupRows.map((_, index) => `group-row-${index + 1}`), "vertical"),
+    groups: stack(visibleGroups.map((group) => `group-${group}`), "horizontal"),
+    "group-nav": stack(["group-back", "group-next"], "horizontal"),
+    "group-back": button("Back", submit(getAbsoluteAppUrl(`/snap?page=${previousPage}`)), "secondary"),
+    "group-next": button("Next", submit(getAbsoluteAppUrl(`/snap?page=${nextPage}`)), "secondary"),
   };
 
-  for (const [index, row] of groupRows.entries()) {
-    elements[`group-row-${index + 1}`] = stack(row.map((group) => `group-${group}`), "horizontal");
-  }
-
-  for (const group of groups) {
+  for (const group of visibleGroups) {
     elements[`group-${group}`] = button(group, submit(getAbsoluteAppUrl(`/snap?group=${group}`)));
   }
 
@@ -162,6 +166,11 @@ function composeCast(text: string, embeds: string[]) {
 
 function getGroups() {
   return [...new Set(teams.map((team) => team.group))].sort();
+}
+
+function normalizePageIndex(pageIndex: number, pageCount: number) {
+  if (!Number.isFinite(pageIndex) || pageCount < 1) return 0;
+  return ((Math.trunc(pageIndex) % pageCount) + pageCount) % pageCount;
 }
 
 function getSnapTeamLabel(team: Team) {
