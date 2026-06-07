@@ -10,7 +10,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "update:leaderboard": "node --experimental-strip-types scripts/update-leaderboard.ts",
+    "snapshot:holders": "node --experimental-strip-types scripts/snapshot-holders.ts",
+    "generate:payouts": "node --experimental-strip-types scripts/generate-payouts.ts",
+    "verify:teams": "node --experimental-strip-types scripts/verify-teams.ts",
+    "upload:grove": "node --experimental-strip-types scripts/upload-grove-metadata.ts",
+    "contracts:compile": "hardhat compile",
+    "deploy:check": "node scripts/check-deploy-env.js",
+    "deploy:prize-claim:base": "hardhat run scripts/deploy-prize-claim.js --network base",
+    "set:sale-recipient:base": "hardhat run scripts/set-sale-recipient.js --network base",
+    "setup:drop:tokens:base": "hardhat run scripts/setup-drop-tokens.js --network base",
+    "setup:drop:claims:base": "hardhat run scripts/setup-drop-claim-conditions.js --network base",
+    "verify:prize-claim:base": "hardhat verify --network base 0x40B059F163a1C5D23682d355075C5Cb5A01389a4 0xAe6b19b637FDCB9c5C05238E5279754C39DE76A9",
+    "verify:drop:base:explorer": "hardhat verify --network base 0x581b384dE36896cfA466898aDC1cD1d546924Ffc 0xAe6b19b637FDCB9c5C05238E5279754C39DE76A9 \"World Cup 2026\" \"WC26\" 0xAe6b19b637FDCB9c5C05238E5279754C39DE76A9 0 0xAe6b19b637FDCB9c5C05238E5279754C39DE76A9",
+    "deploy:drop:base": "hardhat run scripts/deploy-worldcup-drop.js --network base",
+    "verify:drop:base": "hardhat run scripts/verify-worldcup-drop.js --network base"
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^4.3.7",
@@ -23,12 +38,17 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^4.0.13",
+    "@nomicfoundation/hardhat-verify": "^3.0.19",
     "@tailwindcss/postcss": "^4",
+    "@thirdweb-dev/contracts": "^3.15.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "hardhat": "^3.8.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
