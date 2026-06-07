@@ -50,7 +50,7 @@ function buildGroupPickerSnap(page: number) {
   );
   const elements: Record<string, SnapElement> = {
     page: stack(["hero", "title", "body", "groups", "nav"]),
-    hero: image(getAbsoluteAppUrl("/images/world-cup-trophy.png?v=2"), "World Cup Support Drop", {
+    hero: image(getAbsoluteAppUrl("/images/world-cup-share-hero.png?v=1"), "World Cup Support Drop", {
       title: "World Cup Support Drop",
       subtitle: `Groups ${pageLabel}`,
     }),
