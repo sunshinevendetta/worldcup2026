@@ -63,21 +63,19 @@ function buildGroupPickerSnap() {
 
 function buildGroupSnap(group: string) {
   const groupTeams = teams.filter((team) => team.group === group);
-  const teamRows = chunk(groupTeams, 2);
+  const teamColumns = [groupTeams.filter((_, index) => index % 2 === 0), groupTeams.filter((_, index) => index % 2 === 1)];
   const elements: Record<string, SnapElement> = {
     page: stack(["title", "body", "teams", "back"]),
     title: text(`Back a team from Group ${group}`, { weight: "bold" }),
     body: text("Choose the country you want to lift on the leaderboard. The winning support base shares the post-tournament reward path.", { size: "sm" }),
-    teams: stack(teamRows.map((_, index) => `team-row-${index + 1}`), "vertical"),
+    teams: stack(["team-column-1", "team-column-2"], "horizontal", { columns: 2 }),
+    "team-column-1": stack(teamColumns[0].map((team) => `team-${team.slug}`), "vertical"),
+    "team-column-2": stack(teamColumns[1].map((team) => `team-${team.slug}`), "vertical"),
     back: button("Back to groups", submit(getAbsoluteAppUrl("/snap")), "secondary"),
   };
 
-  for (const [index, row] of teamRows.entries()) {
-    elements[`team-row-${index + 1}`] = stack(row.map((team) => `team-${team.slug}`), "horizontal");
-  }
-
   for (const team of groupTeams) {
-    elements[`team-${team.slug}`] = button(getTeamShareLabel(team.shortName, team.slug), submit(getAbsoluteAppUrl(`/snap?team=${team.slug}`)));
+    elements[`team-${team.slug}`] = button(getSnapTeamLabel(team), submit(getAbsoluteAppUrl(`/snap?team=${team.slug}`)));
   }
 
   return snap(elements);
@@ -114,10 +112,10 @@ function snap(elements: Record<string, SnapElement>) {
   };
 }
 
-function stack(children: string[], direction: "horizontal" | "vertical" = "vertical"): SnapElement {
+function stack(children: string[], direction: "horizontal" | "vertical" = "vertical", props: Record<string, unknown> = {}): SnapElement {
   return {
     type: "stack",
-    props: { direction, gap: "sm" },
+    props: { direction, gap: "sm", ...props },
     children,
   };
 }
@@ -167,6 +165,28 @@ function composeCast(text: string, embeds: string[]) {
 
 function getGroups() {
   return [...new Set(teams.map((team) => team.group))].sort();
+}
+
+function getSnapTeamLabel(team: Team) {
+  const labels: Record<string, string> = {
+    "cape-verde": "Cape V.",
+    "dr-congo": "DR Congo",
+    england: "England",
+    "ivory-coast": "Ivory C.",
+    "new-zealand": "N. Zealand",
+    "saudi-arabia": "Saudi",
+    scotland: "Scotland",
+    "south-africa": "S. Africa",
+    "south-korea": "S. Korea",
+    "united-states": "USA",
+  };
+
+  const label = labels[team.slug] || team.shortName;
+  if (team.slug === "england" || team.slug === "scotland") {
+    return `${String.fromCodePoint(0x1f3f4)} ${label}`;
+  }
+
+  return getTeamShareLabel(label, team.slug);
 }
 
 function chunk<T>(items: T[], size: number) {
