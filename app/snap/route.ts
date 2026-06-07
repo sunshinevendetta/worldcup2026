@@ -86,17 +86,15 @@ function buildTeamSnap(team: Team) {
   const teamUrl = getAbsoluteAppUrl(`/team/${team.slug}?miniApp=true`);
   const castText = getSupportShareText(team.name, team.slug);
   const elements: Record<string, SnapElement> = {
-    page: stack(["hero", "title", "body", "actions", "back"]),
+    page: stack(["hero", "actions", "back"]),
     hero: image(getAbsoluteAppUrl(`/images/teams/${team.slug}.webp`), team.name, {
       aspect: "1.91:1",
-      title: team.name,
-      subtitle: `Group ${team.group} support flag`,
+      title: `Support ${team.name}`,
+      subtitle: `0.001 ETH / Group ${team.group}`,
     }),
-    title: text(`Support ${team.name}`, { weight: "bold" }),
-    body: text("Mint a support flag for 0.001 ETH. The most-backed team wins the support pool.", { size: "sm" }),
     actions: stack(["mint", "cast"], "horizontal", { columns: 2 }),
-    mint: button("Mint flag", openUrl(teamUrl)),
-    cast: button("Cast support", composeCast(castText, [teamUrl]), "secondary"),
+    mint: button("Mint flag", openMiniApp(teamUrl)),
+    cast: button("Share", composeCast(castText, [teamUrl]), "secondary"),
     back: button(`Group ${team.group}`, submit(getAbsoluteAppUrl(`/snap?group=${team.group}`)), "secondary"),
   };
 
@@ -151,10 +149,10 @@ function submit(target: string) {
   };
 }
 
-function openUrl(url: string) {
+function openMiniApp(url: string) {
   return {
-    action: "open_url",
-    params: { url },
+    action: "open_mini_app",
+    params: { url, target: url },
   };
 }
 
