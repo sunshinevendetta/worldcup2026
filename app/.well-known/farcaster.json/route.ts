@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getAbsoluteAppUrl } from "@/lib/social";
 
 export const dynamic = "force-dynamic";
-const appImage = "/images/world-cup-trophy.png";
+const appImage = "/images/world-cup-trophy.png?v=2";
 
 const accountAssociation = {
   header: "eyJmaWQiOjI3Mjk3NywidHlwZSI6ImF1dGgiLCJrZXkiOiIweDBCYjE1ZjEzY0FlRDgyM2Q4MjgyMUY3ZkQxMWVEOGU5RTBlMjc5NjQifQ",

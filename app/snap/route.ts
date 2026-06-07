@@ -3,6 +3,7 @@ import { getAbsoluteAppUrl, getSupportShareText } from "@/lib/social";
 import { getTeamBySlug, teams, type Team } from "@/lib/teams";
 
 const SNAP_CONTENT_TYPE = "application/vnd.farcaster.snap+json";
+const GROUP_PAGE_SIZE = 4;
 
 type SnapElement = {
   type: string;
@@ -23,6 +24,7 @@ export async function POST(request: NextRequest) {
 
 function buildSnap(request: NextRequest) {
   const group = request.nextUrl.searchParams.get("group")?.toUpperCase();
+  const page = getSnapPage(request.nextUrl.searchParams.get("page"));
   const teamSlug = request.nextUrl.searchParams.get("team");
   const team = teamSlug ? getTeamBySlug(teamSlug) : undefined;
 
@@ -34,26 +36,35 @@ function buildSnap(request: NextRequest) {
     return buildGroupSnap(group);
   }
 
-  return buildGroupPickerSnap();
+  return buildGroupPickerSnap(page);
 }
 
-function buildGroupPickerSnap() {
+function buildGroupPickerSnap(page: number) {
   const groups = getGroups();
-  const firstGroups = groups.slice(0, 6);
-  const secondGroups = groups.slice(6);
-  const children = ["title", "body", "groups"];
+  const totalPages = Math.ceil(groups.length / GROUP_PAGE_SIZE);
+  const start = (page - 1) * GROUP_PAGE_SIZE;
+  const visibleGroups = groups.slice(start, start + GROUP_PAGE_SIZE);
+  const pageLabel = `${visibleGroups[0]}-${visibleGroups[visibleGroups.length - 1]}`;
+  const navChildren = [page > 1 ? "prev" : undefined, page < totalPages ? "next" : undefined].filter(
+    (child): child is string => Boolean(child),
+  );
   const elements: Record<string, SnapElement> = {
-    page: stack(children),
-    title: text("Choose your road to the cup", { weight: "bold" }),
-    body: text("Start with a group, then back a country on Base. Every 0.001 ETH flag claim adds to that team's count and reward pool.", { size: "sm" }),
-    groups: stack(["groups-1", "groups-2"], "horizontal"),
-    "groups-1": stack(firstGroups.map((group) => `group-${group}`), "vertical"),
-    "groups-2": stack(secondGroups.map((group) => `group-${group}`), "vertical"),
+    page: stack(["hero", "title", "body", "groups", "nav"]),
+    hero: image(getAbsoluteAppUrl("/images/world-cup-trophy.png?v=2"), "World Cup Support Drop", {
+      title: "World Cup Support Drop",
+      subtitle: `Groups ${pageLabel}`,
+    }),
+    title: text(`Pick a group (${pageLabel})`, { weight: "bold" }),
+    body: text("Choose a group, then back a country on Base. Every 0.001 ETH flag claim adds to that team's count and reward pool.", { size: "sm" }),
+    groups: stack(visibleGroups.map((group) => `group-${group}`), "vertical"),
+    nav: stack(navChildren, "horizontal"),
   };
 
-  for (const group of groups) {
+  for (const group of visibleGroups) {
     elements[`group-${group}`] = button(`Group ${group}`, submit(getAbsoluteAppUrl(`/snap?group=${group}`)));
   }
+  elements.next = button("Next groups", submit(getAbsoluteAppUrl(`/snap?page=${page + 1}`)), "secondary");
+  elements.prev = button("Back groups", submit(getAbsoluteAppUrl(`/snap?page=${page - 1}`)), "secondary");
 
   return snap(elements);
 }
@@ -159,6 +170,12 @@ function composeCast(text: string, embeds: string[]) {
 
 function getGroups() {
   return [...new Set(teams.map((team) => team.group))].sort();
+}
+
+function getSnapPage(value: string | null) {
+  const page = Number(value || 1);
+  if (!Number.isInteger(page)) return 1;
+  return Math.min(Math.max(page, 1), Math.ceil(getGroups().length / GROUP_PAGE_SIZE));
 }
 
 function snapResponse(body: unknown) {

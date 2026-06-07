@@ -267,7 +267,7 @@ export function getConnectorLabel(connector?: WalletConnector) {
 }
 
 function getAppIconUrl() {
-  return `${window.location.origin}/images/world-cup-trophy.png`;
+  return `${window.location.origin}/images/world-cup-trophy.png?v=2`;
 }
 
 function toChainHex(chainId: number) {

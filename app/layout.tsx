@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 const baseAppId = process.env.NEXT_PUBLIC_BASE_APP_ID || "6a23befeee0157745851b28a";
-const appImage = "/images/world-cup-trophy.png";
+const appImage = "/images/world-cup-trophy.png?v=2";
 const absoluteAppImage = new URL(appImage, appUrl).toString();
 
 export const metadata: Metadata = {
