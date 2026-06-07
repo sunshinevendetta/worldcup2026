@@ -39,12 +39,16 @@ function buildSnap(request: NextRequest) {
 
 function buildGroupPickerSnap() {
   const groups = getGroups();
+  const firstGroups = groups.slice(0, 6);
+  const secondGroups = groups.slice(6);
   const children = ["title", "body", "groups"];
   const elements: Record<string, SnapElement> = {
     page: stack(children),
     title: text("Pick your World Cup group", { weight: "bold" }),
     body: text("Choose a group, pick a team, then mint the support flag in the Mini App.", { size: "sm" }),
-    groups: stack(groups.map((group) => `group-${group}`), "vertical"),
+    groups: stack(["groups-1", "groups-2"], "horizontal"),
+    "groups-1": stack(firstGroups.map((group) => `group-${group}`), "vertical"),
+    "groups-2": stack(secondGroups.map((group) => `group-${group}`), "vertical"),
   };
 
   for (const group of groups) {
