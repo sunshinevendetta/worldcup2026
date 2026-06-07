@@ -93,8 +93,8 @@ function buildTeamSnap(team: Team) {
     }),
     title: text(`Support ${team.name}`, { weight: "bold" }),
     body: text("Mint one support flag for 0.001 ETH. Your claim adds to this country's live count, and the strongest fan base becomes eligible for the reward flow after the cup.", { size: "sm" }),
-    actions: stack(["mint", "cast"], "vertical"),
-    mint: button("Mint flag", openMiniApp(teamUrl)),
+    actions: stack(["mint", "cast"], "horizontal"),
+    mint: button("Mint flag", openUrl(teamUrl)),
     cast: button("Cast support", composeCast(castText, [teamUrl]), "secondary"),
     back: button(`Group ${team.group}`, submit(getAbsoluteAppUrl(`/snap?group=${team.group}`)), "secondary"),
   };
@@ -150,9 +150,9 @@ function submit(target: string) {
   };
 }
 
-function openMiniApp(url: string) {
+function openUrl(url: string) {
   return {
-    action: "open_mini_app",
+    action: "open_url",
     params: { url },
   };
 }
