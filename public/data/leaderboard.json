@@ -1,11 +1,11 @@
 {
-  "updatedAt": 1780741337950,
+  "updatedAt": 1780820223284,
   "stale": false,
   "chainId": 8453,
   "contract": "0x581b384dE36896cfA466898aDC1cD1d546924Ffc",
-  "totalMints": 0,
+  "totalMints": 1,
   "mintPriceEth": "0.001",
-  "prizeBagEth": "0",
+  "prizeBagEth": "0.0005",
   "teams": [
     {
       "id": 1,
@@ -96,7 +96,7 @@
       "slug": "france",
       "name": "France",
       "group": "D",
-      "count": 0
+      "count": 1
     },
     {
       "id": 14,
@@ -213,7 +213,7 @@
     {
       "id": 30,
       "slug": "curacao",
-      "name": "Cura?ao",
+      "name": "Curacao",
       "group": "H",
       "count": 0
     },
