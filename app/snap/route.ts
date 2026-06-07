@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAbsoluteAppUrl, getSupportShareText } from "@/lib/social";
+import { getAbsoluteAppUrl, getSupportShareText, getTeamFlagEmoji } from "@/lib/social";
 import { getTeamBySlug, teams, type Team } from "@/lib/teams";
 
 const SNAP_CONTENT_TYPE = "application/vnd.farcaster.snap+json";
@@ -184,7 +184,18 @@ function getSnapTeamLabel(team: Team) {
     "united-states": "USA",
   };
 
-  return labels[team.slug] || team.shortName;
+  const label = labels[team.slug] || team.shortName;
+  const emoji = team.slug === "england" || team.slug === "scotland"
+    ? countryFlagEmoji("GB")
+    : getTeamFlagEmoji(team.slug);
+
+  return emoji ? `${emoji} ${label}` : label;
+}
+
+function countryFlagEmoji(countryCode: string) {
+  return Array.from(countryCode.toUpperCase(), (char) =>
+    String.fromCodePoint(0x1f1e6 + char.charCodeAt(0) - 65),
+  ).join("");
 }
 
 function chunk<T>(items: T[], size: number) {
